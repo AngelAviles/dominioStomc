@@ -1,47 +1,100 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dominio;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author angel
+ */
+@Entity
+@Table(name = "tblUser")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+    , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
+    , @NamedQuery(name = "User.findByFolio", query = "SELECT u FROM User u WHERE u.folio = :folio")
+    , @NamedQuery(name = "User.findByAccount", query = "SELECT u FROM User u WHERE u.account = :account")
+    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
-    private long id;
-    private long folio;
-    private String account;
-    private Profile profile;
-    private long idProfile;
-    private Employee employee;
-    private long idEmployee;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Long id;
+    
+    @Column(name = "folio")
+    private Long folio;
+    
+    @Column(name = "account")
+    private String account;
+    
+    @Column(name = "password")
+    private String password;
+    
+    @JoinColumn(name = "idEmployee", referencedColumnName = "id")
+    @OneToOne
+    private Employee idEmployee;
+    
+    @JoinColumn(name = "idProfile", referencedColumnName = "id")
+    @OneToOne
+    private Profile idProfile;
+    
+    @OneToMany(mappedBy = "idUser")
+    private List<Turn> turnList;
+
+    // Constructores
     public User() {
     }
 
-    public User(long id) {
+    public User(Long id) {
         this.id = id;
     }
 
-    public User(long id, long folio, String account, Profile profile, long idProfile, Employee employee, long idEmployee) {
+    public User(Long id, Long folio, String account, String password, Employee idEmployee, Profile idProfile, List<Turn> turnList) {
         this.id = id;
         this.folio = folio;
         this.account = account;
-        this.profile = profile;
-        this.idProfile = idProfile;
-        this.employee = employee;
+        this.password = password;
         this.idEmployee = idEmployee;
+        this.idProfile = idProfile;
+        this.turnList = turnList;
     }
-
-    public long getId() {
+    
+    // Getters y Setters
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getFolio() {
+    public Long getFolio() {
         return folio;
     }
 
-    public void setFolio(long folio) {
+    public void setFolio(Long folio) {
         this.folio = folio;
     }
 
@@ -53,61 +106,62 @@ public class User implements Serializable {
         this.account = account;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public String getPassword() {
+        return password;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public long getIdProfile() {
-        return idProfile;
-    }
-
-    public void setIdProfile(long idProfile) {
-        this.idProfile = idProfile;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public long getIdEmployee() {
+    public Employee getIdEmployee() {
         return idEmployee;
     }
 
-    public void setIdEmployee(long idEmployee) {
+    public void setIdEmployee(Employee idEmployee) {
         this.idEmployee = idEmployee;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return folio == user.folio;
+    public Profile getIdProfile() {
+        return idProfile;
+    }
+
+    public void setIdProfile(Profile idProfile) {
+        this.idProfile = idProfile;
+    }
+
+    @XmlTransient
+    public List<Turn> getTurnList() {
+        return turnList;
+    }
+
+    public void setTurnList(List<Turn> turnList) {
+        this.turnList = turnList;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(folio);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof User)) {
+            return false;
+        }
+        User other = (User) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", folio=" + folio +
-                ", account='" + account + '\'' +
-                ", profile=" + profile +
-                ", idProfile=" + idProfile +
-                ", employee=" + employee +
-                ", idEmployee=" + idEmployee +
-                '}';
+        return "dominio.User[ id=" + id + " ]";
     }
+    
 }

@@ -1,57 +1,117 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dominio;
 
 import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author angel
+ */
+@Entity
+@Table(name = "tblEmployee")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+    , @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id")
+    , @NamedQuery(name = "Employee.findByFolio", query = "SELECT e FROM Employee e WHERE e.folio = :folio")
+    , @NamedQuery(name = "Employee.findByNoEmployee", query = "SELECT e FROM Employee e WHERE e.noEmployee = :noEmployee")
+    , @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name")
+    , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
+    , @NamedQuery(name = "Employee.findByDepartment", query = "SELECT e FROM Employee e WHERE e.department = :department")})
 public class Employee implements Serializable {
-    private long id;
-    private long folio;
-    private long noEmployee;
-    private String name;
-    private String address;
-    private String department;
-    private String branch;
-    private AttentionPoint puntoAtencion;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Long id;
+    
+    @Column(name = "folio")
+    private Long folio;
+    
+    @Column(name = "noEmployee")
+    private Long noEmployee;
+    
+    @Column(name = "name")
+    private String name;
+    
+    @Column(name = "address")
+    private String address;
+    
+    @Column(name = "department")
+    private String department;
+    
+    @OneToOne(mappedBy = "idEmployee", targetEntity = User.class, cascade = CascadeType.ALL)
+    private User user;
+    
+    @JoinColumn(name = "idAttentionPoint", referencedColumnName = "id")
+    @ManyToOne
+    private AttentionPoint idAttentionPoint;
+    
+    @JoinColumn(name = "idBranch", referencedColumnName = "id")
+    @ManyToOne
+    private Branch idBranch;
+
+    // Constructores
     public Employee() {
     }
 
-    public Employee(long id) {
+    public Employee(Long id) {
         this.id = id;
     }
 
-    public Employee(long id, long folio, long noEmployee, String name, String address, String department, String branch, AttentionPoint puntoAtencion) {
+    public Employee(Long id, Long folio, Long noEmployee, String name, String address, String department, User user, AttentionPoint idAttentionPoint, Branch idBranch) {
         this.id = id;
         this.folio = folio;
         this.noEmployee = noEmployee;
         this.name = name;
         this.address = address;
         this.department = department;
-        this.branch = branch;
-        this.puntoAtencion = puntoAtencion;
+        this.user = user;
+        this.idAttentionPoint = idAttentionPoint;
+        this.idBranch = idBranch;
     }
-
-    public long getId() {
+    
+    // Getters y Setters
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getFolio() {
+    public Long getFolio() {
         return folio;
     }
 
-    public void setFolio(long folio) {
+    public void setFolio(Long folio) {
         this.folio = folio;
     }
 
-    public long getNoEmployee() {
+    public Long getNoEmployee() {
         return noEmployee;
     }
 
-    public void setNoEmployee(long noEmployee) {
+    public void setNoEmployee(Long noEmployee) {
         this.noEmployee = noEmployee;
     }
 
@@ -79,32 +139,53 @@ public class Employee implements Serializable {
         this.department = department;
     }
 
-    public String getBranch() {
-        return branch;
+    public User getUser() {
+        return user;
     }
 
-    public void setBranch(String branch) {
-        this.branch = branch;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public AttentionPoint getPuntoAtencion() {
-        return puntoAtencion;
+    public AttentionPoint getIdAttentionPoint() {
+        return idAttentionPoint;
     }
 
-    public void setPuntoAtencion(AttentionPoint puntoAtencion) {
-        this.puntoAtencion = puntoAtencion;
+    public void setIdAttentionPoint(AttentionPoint idAttentionPoint) {
+        this.idAttentionPoint = idAttentionPoint;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
-        Employee employee = (Employee) o;
-        return folio == employee.folio && noEmployee == employee.noEmployee;
+    public Branch getIdBranch() {
+        return idBranch;
+    }
+
+    public void setIdBranch(Branch idBranch) {
+        this.idBranch = idBranch;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(folio, noEmployee);
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Employee)) {
+            return false;
+        }
+        Employee other = (Employee) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "dominio.Employee[ id=" + id + " ]";
+    }
+    
 }
