@@ -75,11 +75,16 @@ public class Turn implements Serializable {
         GENERIC
     }
 
+    // Constructores
     public Turn() {
     }
 
     public Turn(String uuid) {
         this.uuid = uuid;
+    }
+
+    public Turn(Type type) {
+        this.type = type;
     }
 
     public Turn(String uuid, String dateTimeCreated, String dateTimeAssigned, String dateTimeFinished, Integer turnNumber, String status, Boolean isActive, Type type, User idUser) {
@@ -94,8 +99,7 @@ public class Turn implements Serializable {
         this.idUser = idUser;
     }
     
-    
-
+    // Getters y Setters
     public String getUuid() {
         return uuid;
     }
