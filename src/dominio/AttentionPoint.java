@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,10 +47,17 @@ public class AttentionPoint implements Serializable {
     private Long folio;
     
     @Column(name = "point")
-    private String point;
+    @Enumerated(EnumType.STRING)
+    private Type point;
     
     @OneToMany(mappedBy = "idAttentionPoint")
     private List<Employee> employeeList;
+    
+    public enum Type {
+        CAJA,
+        MODULO,
+        GENERIC
+    }
 
     // Contructores
     public AttentionPoint() {
@@ -58,7 +67,7 @@ public class AttentionPoint implements Serializable {
         this.id = id;
     }
 
-    public AttentionPoint(Long id, Long folio, String point, List<Employee> employeeList) {
+    public AttentionPoint(Long id, Long folio, Type point, List<Employee> employeeList) {
         this.id = id;
         this.folio = folio;
         this.point = point;
@@ -82,11 +91,11 @@ public class AttentionPoint implements Serializable {
         this.folio = folio;
     }
 
-    public String getPoint() {
+    public Type getPoint() {
         return point;
     }
 
-    public void setPoint(String point) {
+    public void setPoint(Type point) {
         this.point = point;
     }
 
