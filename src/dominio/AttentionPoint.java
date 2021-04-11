@@ -34,16 +34,15 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "AttentionPoint.findByPoint", query = "SELECT a FROM AttentionPoint a WHERE a.point = :point")})
 public class AttentionPoint implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "folio")
-    private long folio;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     
+    @Basic(optional = false)
+    @Column(name = "folio")
+    private Long folio;
     
     @Column(name = "point")
     private String point;
@@ -75,6 +74,13 @@ public class AttentionPoint implements Serializable {
         this.id = id;
     }
 
+    public Long getFolio() {
+        return folio;
+    }
+
+    public void setFolio(Long folio) {
+        this.folio = folio;
+    }
 
     public String getPoint() {
         return point;
@@ -116,14 +122,6 @@ public class AttentionPoint implements Serializable {
     @Override
     public String toString() {
         return "dominio.AttentionPoint[ id=" + id + " ]";
-    }
-
-    public long getFolio() {
-        return folio;
-    }
-
-    public void setFolio(long folio) {
-        this.folio = folio;
     }
     
 }

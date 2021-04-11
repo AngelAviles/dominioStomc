@@ -86,6 +86,10 @@ public class ReportingLog implements Serializable {
         this.id = id;
     }
 
+    public void setFolio(Long folio) {
+        this.folio = folio;
+    }
+    
     public Long getFolio() {
         return folio;
     }

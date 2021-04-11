@@ -34,16 +34,15 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Branch.findByBranchName", query = "SELECT b FROM Branch b WHERE b.branchName = :branchName")})
 public class Branch implements Serializable {
 
-    @Basic(optional = false)
-    @Column(name = "folio")
-    private long folio;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     
+    @Basic(optional = false)
+    @Column(name = "folio")
+    private Long folio;
     
     @Column(name = "branchName")
     private String branchName;
@@ -75,7 +74,14 @@ public class Branch implements Serializable {
         this.id = id;
     }
 
+    public long getFolio() {
+        return folio;
+    }
 
+    public void setFolio(long folio) {
+        this.folio = folio;
+    }
+    
     public String getBranchName() {
         return branchName;
     }
@@ -116,14 +122,6 @@ public class Branch implements Serializable {
     @Override
     public String toString() {
         return "dominio.Branch[ id=" + id + " ]";
-    }
-
-    public long getFolio() {
-        return folio;
-    }
-
-    public void setFolio(long folio) {
-        this.folio = folio;
     }
     
 }
