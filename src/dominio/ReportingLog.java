@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ReportingLog.findByFolio", query = "SELECT r FROM ReportingLog r WHERE r.folio = :folio")
     , @NamedQuery(name = "ReportingLog.findByRequestedReport", query = "SELECT r FROM ReportingLog r WHERE r.requestedReport = :requestedReport")
     , @NamedQuery(name = "ReportingLog.findByUserAccount", query = "SELECT r FROM ReportingLog r WHERE r.userAccount = :userAccount")
-    , @NamedQuery(name = "ReportingLog.findByDateReport", query = "SELECT r FROM ReportingLog r WHERE r.dateReport = :dateReport")})
+    , @NamedQuery(name = "ReportingLog.findByDateReport", query = "SELECT r FROM ReportingLog r WHERE r.dateReport BETWEEN :fechaInicio AND :fechaFin")})
 public class ReportingLog implements Serializable {
 
     @Id

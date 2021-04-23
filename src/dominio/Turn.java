@@ -32,9 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Turn.findAll", query = "SELECT t FROM Turn t")
     , @NamedQuery(name = "Turn.findByUuid", query = "SELECT t FROM Turn t WHERE t.uuid = :uuid")
-    , @NamedQuery(name = "Turn.findByDateTimeCreated", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated = :dateTimeCreated")
-    , @NamedQuery(name = "Turn.findByDateTimeAssigned", query = "SELECT t FROM Turn t WHERE t.dateTimeAssigned = :dateTimeAssigned")
-    , @NamedQuery(name = "Turn.findByDateTimeFinished", query = "SELECT t FROM Turn t WHERE t.dateTimeFinished = :dateTimeFinished")
+    , @NamedQuery(name = "Turn.findByDateTimeCreated", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated BETWEEN :fechaInicio AND :fechaFin")
+    , @NamedQuery(name = "Turn.findByDateTimeAssigned", query = "SELECT t FROM Turn t WHERE t.dateTimeAssigned BETWEEN :fechaInicio AND :fechaFin")
+    , @NamedQuery(name = "Turn.findByDateTimeFinished", query = "SELECT t FROM Turn t WHERE t.dateTimeFinished BETWEEN :fechaInicio AND :fechaFin")
     , @NamedQuery(name = "Turn.findByTurnNumber", query = "SELECT t FROM Turn t WHERE t.turnNumber = :turnNumber")
     , @NamedQuery(name = "Turn.findByStatus", query = "SELECT t FROM Turn t WHERE t.status = :status")
     , @NamedQuery(name = "Turn.findByIsActive", query = "SELECT t FROM Turn t WHERE t.isActive = :isActive")

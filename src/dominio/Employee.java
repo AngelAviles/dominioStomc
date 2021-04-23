@@ -37,9 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name")
     , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
     , @NamedQuery(name = "Employee.findByDepartment", query = "SELECT e FROM Employee e WHERE e.department = :department")
-    , @NamedQuery(name = "Employee.findByAccount", query = "SELECT u FROM Employee u WHERE u.account = :account")
-    , @NamedQuery(name = "Employee.findByPassword", query = "SELECT u FROM Employee u WHERE u.password = :password")
-    , @NamedQuery(name = "Employee.login", query = "SELECT u FROM Employee u WHERE u.account = :account AND u.password = :password ")})
+    , @NamedQuery(name = "Employee.findByAccount", query = "SELECT e FROM Employee e WHERE e.account = :account")
+    , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
+    , @NamedQuery(name = "Employee.comprobarValoresUnicos", query = "SELECT e FROM Employee e WHERE e.noEmployee = :noEmployee AND e.account = :account")
+    , @NamedQuery(name = "Employee.login", query = "SELECT e FROM Employee e WHERE e.account = :account AND e.password = :password")})
 public class Employee implements Serializable {
 
     @Id
