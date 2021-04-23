@@ -40,7 +40,48 @@ public class Message implements Serializable {
         CALL_NEXT_MODULO,
         CALL_NEXT_GENERIC,
         RELEASE_TURN,
-        SERVER_SUCCESSFULLY_CREATED_TURN
+        SERVER_SUCCESSFULLY_CREATED_TURN,
+        
+        ADD_EMPLOYEE,
+        EDIT_EMPLOYEE,
+        DELETE_EMPLOYEE,
+        GET_MANY_EMPLOYEE,
+        GET_ONE_EMPLOYEE,
+        GET_EMPLOYEE_BY_ATTENTION_POINT,
+        GET_EMPLOYEE_BY_BRANCH,
+        GET_EMPLOYEE_BY_PROFILE,
+        LOGIN,
+        
+        ADD_ATTENTION_POINT,
+        EDIT_ATTENTION_POINT,
+        DELETE_ATTENTION_POINT,
+        GET_MANY_ATTENTION_POINT,
+        GET_ONE_ATTENTION_POINT,
+        
+        ADD_BRANCH,
+        EDIT_BRANCH,
+        DELETE_BRANCH,
+        GET_MANY_BRANCH,
+        GET_ONE_BRANCH,
+        
+        ADD_PROFILE,
+        EDIT_PROFILE,
+        DELETE_PROFILE,
+        GET_MANY_PROFILE,
+        GET_ONE_PROFILE,
+        
+        ADD_TURN,
+        EDIT_TURN,
+        DELETE_TURN,
+        GET_MANY_TURN,
+        GET_ONE_TURN,
+        GET_TURN_BY_EMPLOYEE,
+        
+        ADD_LYSING_INFORMATION,
+        EDIT_LYSING_INFORMATION,
+        DELETE_LYSING_INFORMATION,
+        GET_MANY_LYSING_INFORMATION,
+        GET_ONE_LYSING_INFORMATION
     }
 
     public String getUuid() {

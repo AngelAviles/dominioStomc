@@ -6,7 +6,6 @@
 package dominio;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,19 +34,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Profile implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_idProfile")
+    @TableGenerator(name = "generator_idProfile", allocationSize = 1)
+    @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
-    
-    @Column(name = "folio")
+
+    @Column(name = "folio", columnDefinition = "BIGINT IDENTITY", insertable = false)
     private Long folio;
     
     @Column(name = "profileName")
     private String profileName;
     
-    @OneToOne(mappedBy = "idProfile", targetEntity = User.class, cascade = CascadeType.ALL)
-    private User user;
+    @OneToOne(mappedBy = "idProfile", targetEntity = Employee.class, cascade = CascadeType.ALL)
+    private Employee employee;
 
     // Contructores
     public Profile() {
@@ -56,11 +56,11 @@ public class Profile implements Serializable {
         this.id = id;
     }
 
-    public Profile(Long id, Long folio, String profileName, User user) {
+    public Profile(Long id, Long folio, String profileName, Employee employee) {
         this.id = id;
         this.folio = folio;
         this.profileName = profileName;
-        this.user = user;
+        this.employee = employee;
     }
     
     // Getters y Setters
@@ -88,12 +88,12 @@ public class Profile implements Serializable {
         this.profileName = profileName;
     }
 
-    public User getUser() {
-        return user;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override

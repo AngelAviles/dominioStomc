@@ -6,6 +6,7 @@
 package dominio;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -40,17 +43,20 @@ public class Turn implements Serializable {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "uuid")
+    @Column(name = "uuid", columnDefinition = "uniqueidentifier")
     private String uuid;
 
     @Column(name = "dateTimeCreated")
-    private String dateTimeCreated;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateTimeCreated;
 
     @Column(name = "dateTimeAssigned")
-    private String dateTimeAssigned;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateTimeAssigned;
 
     @Column(name = "dateTimeFinished")
-    private String dateTimeFinished;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateTimeFinished;
 
     @Column(name = "turnNumber")
     private Integer turnNumber;
@@ -65,9 +71,9 @@ public class Turn implements Serializable {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @JoinColumn(name = "idUser", referencedColumnName = "id")
+    @JoinColumn(name = "idEmployee", referencedColumnName = "id", columnDefinition = "bigint")
     @ManyToOne
-    private User idUser;
+    private Employee idEmployee;
 
     public enum Type {
         CAJA,
@@ -87,7 +93,7 @@ public class Turn implements Serializable {
         this.type = type;
     }
 
-    public Turn(String uuid, String dateTimeCreated, String dateTimeAssigned, String dateTimeFinished, Integer turnNumber, String status, Boolean isActive, Type type, User idUser) {
+    public Turn(String uuid, Date dateTimeCreated, Date dateTimeAssigned, Date dateTimeFinished, Integer turnNumber, String status, Boolean isActive, Type type, Employee idEmployee) {
         this.uuid = uuid;
         this.dateTimeCreated = dateTimeCreated;
         this.dateTimeAssigned = dateTimeAssigned;
@@ -96,9 +102,9 @@ public class Turn implements Serializable {
         this.status = status;
         this.isActive = isActive;
         this.type = type;
-        this.idUser = idUser;
+        this.idEmployee = idEmployee;
     }
-    
+
     // Getters y Setters
     public String getUuid() {
         return uuid;
@@ -108,27 +114,27 @@ public class Turn implements Serializable {
         this.uuid = uuid;
     }
 
-    public String getDateTimeCreated() {
-        return dateTimeCreated;
-    }
-
-    public void setDateTimeCreated(String dateTimeCreated) {
-        this.dateTimeCreated = dateTimeCreated;
-    }
-
-    public String getDateTimeAssigned() {
+    public Date getDateTimeAssigned() {
         return dateTimeAssigned;
     }
 
-    public void setDateTimeAssigned(String dateTimeAssigned) {
+    public void setDateTimeAssigned(Date dateTimeAssigned) {
         this.dateTimeAssigned = dateTimeAssigned;
     }
 
-    public String getDateTimeFinished() {
+    public Date getDateTimeCreated() {
+        return dateTimeCreated;
+    }
+
+    public void setDateTimeCreated(Date dateTimeCreated) {
+        this.dateTimeCreated = dateTimeCreated;
+    }
+
+    public Date getDateTimeFinished() {
         return dateTimeFinished;
     }
 
-    public void setDateTimeFinished(String dateTimeFinished) {
+    public void setDateTimeFinished(Date dateTimeFinished) {
         this.dateTimeFinished = dateTimeFinished;
     }
 
@@ -164,12 +170,12 @@ public class Turn implements Serializable {
         this.type = type;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public Employee getIdEmployee() {
+        return idEmployee;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setIdEmployee(Employee idEmployee) {
+        this.idEmployee = idEmployee;
     }
 
     @Override

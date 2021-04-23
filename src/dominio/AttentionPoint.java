@@ -6,21 +6,18 @@
 package dominio;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,27 +34,19 @@ import javax.xml.bind.annotation.XmlTransient;
 public class AttentionPoint implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_idAttentionPoint")
+    @TableGenerator(name = "generator_idAttentionPoint", allocationSize = 1)
+    @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
-    
-    @Basic(optional = false)
-    @Column(name = "folio")
+
+    @Column(name = "folio", columnDefinition = "BIGINT IDENTITY", insertable = false)
     private Long folio;
     
     @Column(name = "point")
-    @Enumerated(EnumType.STRING)
-    private Type point;
+    private String point;
     
-    @OneToMany(mappedBy = "idAttentionPoint")
-    private List<Employee> employeeList;
-    
-    public enum Type {
-        CAJA,
-        MODULO,
-        GENERIC
-    }
+    @OneToOne(mappedBy = "idAttentionPoint", targetEntity = Employee.class, cascade = CascadeType.ALL)
+    private Employee employee;
 
     // Contructores
     public AttentionPoint() {
@@ -67,11 +56,11 @@ public class AttentionPoint implements Serializable {
         this.id = id;
     }
 
-    public AttentionPoint(Long id, Long folio, Type point, List<Employee> employeeList) {
+    public AttentionPoint(Long id, Long folio, String point, Employee employeeList) {
         this.id = id;
         this.folio = folio;
         this.point = point;
-        this.employeeList = employeeList;
+        this.employee = employee;
     }
     
     // Getters y Setters
@@ -91,21 +80,20 @@ public class AttentionPoint implements Serializable {
         this.folio = folio;
     }
 
-    public Type getPoint() {
+    public String getPoint() {
         return point;
     }
 
-    public void setPoint(Type point) {
+    public void setPoint(String point) {
         this.point = point;
     }
 
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override

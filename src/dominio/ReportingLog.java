@@ -7,7 +7,6 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,12 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ReportingLog implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_idReportingLog")
+    @TableGenerator(name = "generator_idReportingLog", allocationSize = 1)
+    @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
-    
-    @Column(name = "folio")
+
+    @Column(name = "folio", columnDefinition = "BIGINT IDENTITY", insertable = false)
     private Long folio;
     
     @Column(name = "requestedReport")
@@ -53,7 +53,7 @@ public class ReportingLog implements Serializable {
     private String userAccount;
     
     @Column(name = "dateReport")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateReport;
     
     @Lob

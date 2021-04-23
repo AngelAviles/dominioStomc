@@ -6,7 +6,6 @@
 package dominio;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,43 +22,39 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author angel
  */
 @Entity
-@Table(name = "tblBranch")
+@Table(name = "tblCatalogueAttentionPoint")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Branch.findAll", query = "SELECT b FROM Branch b")
-    , @NamedQuery(name = "Branch.findById", query = "SELECT b FROM Branch b WHERE b.id = :id")
-    , @NamedQuery(name = "Branch.findByFolio", query = "SELECT b FROM Branch b WHERE b.folio = :folio")
-    , @NamedQuery(name = "Branch.findByBranchName", query = "SELECT b FROM Branch b WHERE b.branchName = :branchName")})
-public class Branch implements Serializable {
+    @NamedQuery(name = "CatalogueAttentionPoint.findAll", query = "SELECT a FROM CatalogueAttentionPoint a")
+    , @NamedQuery(name = "CatalogueAttentionPoint.findById", query = "SELECT a FROM CatalogueAttentionPoint a WHERE a.id = :id")
+    , @NamedQuery(name = "CatalogueAttentionPoint.findByFolio", query = "SELECT a FROM CatalogueAttentionPoint a WHERE a.folio = :folio")
+    , @NamedQuery(name = "CatalogueAttentionPoint.findByPoint", query = "SELECT a FROM CatalogueAttentionPoint a WHERE a.point = :point")})
+public class CatalogueAttentionPoint implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_idBranch")
-    @TableGenerator(name = "generator_idBranch", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_idCatalogueAttentionPoint")
+    @TableGenerator(name = "generator_idCatalogueAttentionPoint", allocationSize = 1)
     @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
 
     @Column(name = "folio", columnDefinition = "BIGINT IDENTITY", insertable = false)
     private Long folio;
     
-    @Column(name = "branchName")
-    private String branchName;
-    
-    @OneToOne(mappedBy = "idBranch", targetEntity = Employee.class, cascade = CascadeType.ALL)
-    private Employee employee;
+    @Column(name = "point")
+    private String point;
 
     // Contructores
-    public Branch() {
+    public CatalogueAttentionPoint() {
     }
 
-    public Branch(Long id) {
+    public CatalogueAttentionPoint(Long id) {
         this.id = id;
     }
 
-    public Branch(Long id, Long folio, String branchName, Employee employee) {
+    public CatalogueAttentionPoint(Long id, Long folio, String point) {
         this.id = id;
         this.folio = folio;
-        this.branchName = branchName;
-        this.employee = employee;
+        this.point = point;
     }
     
     // Getters y Setters
@@ -72,28 +66,20 @@ public class Branch implements Serializable {
         this.id = id;
     }
 
-    public long getFolio() {
+    public Long getFolio() {
         return folio;
     }
 
-    public void setFolio(long folio) {
+    public void setFolio(Long folio) {
         this.folio = folio;
     }
-    
-    public String getBranchName() {
-        return branchName;
+
+    public String getPoint() {
+        return point;
     }
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setPoint(String point) {
+        this.point = point;
     }
 
     @Override
@@ -106,10 +92,10 @@ public class Branch implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Branch)) {
+        if (!(object instanceof CatalogueAttentionPoint)) {
             return false;
         }
-        Branch other = (Branch) object;
+        CatalogueAttentionPoint other = (CatalogueAttentionPoint) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -118,7 +104,7 @@ public class Branch implements Serializable {
 
     @Override
     public String toString() {
-        return "dominio.Branch[ id=" + id + " ]";
+        return "dominio.CatalogueAttentionPoint[ id=" + id + " ]";
     }
     
 }

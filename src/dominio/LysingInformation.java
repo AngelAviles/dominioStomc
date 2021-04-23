@@ -6,7 +6,6 @@
 package dominio;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,46 +22,40 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author angel
  */
 @Entity
-@Table(name = "tblBranch")
+@Table(name = "tblLysingInformation")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Branch.findAll", query = "SELECT b FROM Branch b")
-    , @NamedQuery(name = "Branch.findById", query = "SELECT b FROM Branch b WHERE b.id = :id")
-    , @NamedQuery(name = "Branch.findByFolio", query = "SELECT b FROM Branch b WHERE b.folio = :folio")
-    , @NamedQuery(name = "Branch.findByBranchName", query = "SELECT b FROM Branch b WHERE b.branchName = :branchName")})
-public class Branch implements Serializable {
+    @NamedQuery(name = "LysingInformation.findAll", query = "SELECT l FROM LysingInformation l")
+    , @NamedQuery(name = "LysingInformation.findById", query = "SELECT l FROM LysingInformation l WHERE l.id = :id")
+    , @NamedQuery(name = "LysingInformation.findByFolio", query = "SELECT l FROM LysingInformation l WHERE l.folio = :folio")
+    , @NamedQuery(name = "LysingInformation.findByProcess", query = "SELECT l FROM LysingInformation l WHERE l.process = :process")})
+public class LysingInformation implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_idBranch")
-    @TableGenerator(name = "generator_idBranch", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "generator_idLysingInformation")
+    @TableGenerator(name = "generator_idLysingInformation", allocationSize = 1)
     @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
 
     @Column(name = "folio", columnDefinition = "BIGINT IDENTITY", insertable = false)
     private Long folio;
-    
-    @Column(name = "branchName")
-    private String branchName;
-    
-    @OneToOne(mappedBy = "idBranch", targetEntity = Employee.class, cascade = CascadeType.ALL)
-    private Employee employee;
 
-    // Contructores
-    public Branch() {
+    @Column(name = "process")
+    private String process;
+
+    public LysingInformation() {
     }
 
-    public Branch(Long id) {
+    public LysingInformation(Long id) {
         this.id = id;
     }
 
-    public Branch(Long id, Long folio, String branchName, Employee employee) {
+    public LysingInformation(Long id, Long folio, String process) {
         this.id = id;
         this.folio = folio;
-        this.branchName = branchName;
-        this.employee = employee;
+        this.process = process;
     }
-    
-    // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -72,28 +64,20 @@ public class Branch implements Serializable {
         this.id = id;
     }
 
-    public long getFolio() {
+    public Long getFolio() {
         return folio;
     }
 
-    public void setFolio(long folio) {
+    public void setFolio(Long folio) {
         this.folio = folio;
     }
-    
-    public String getBranchName() {
-        return branchName;
+
+    public String getProcess() {
+        return process;
     }
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setProcess(String process) {
+        this.process = process;
     }
 
     @Override
@@ -106,10 +90,10 @@ public class Branch implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Branch)) {
+        if (!(object instanceof LysingInformation)) {
             return false;
         }
-        Branch other = (Branch) object;
+        LysingInformation other = (LysingInformation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -118,7 +102,7 @@ public class Branch implements Serializable {
 
     @Override
     public String toString() {
-        return "dominio.Branch[ id=" + id + " ]";
+        return "dominio.LysingInformation[ id=" + id + " ]";
     }
-    
+
 }
