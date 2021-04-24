@@ -50,6 +50,10 @@ public class LysingInformation implements Serializable {
         this.id = id;
     }
 
+    public LysingInformation(String process) {
+        this.process = process;
+    }
+
     public LysingInformation(Long id, Long folio, String process) {
         this.id = id;
         this.folio = folio;

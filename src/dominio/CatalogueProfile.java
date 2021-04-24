@@ -51,6 +51,10 @@ public class CatalogueProfile implements Serializable {
         this.id = id;
     }
 
+    public CatalogueProfile(String profileName) {
+        this.profileName = profileName;
+    }
+
     public CatalogueProfile(Long id, Long folio, String profileName) {
         this.id = id;
         this.folio = folio;
@@ -105,6 +109,10 @@ public class CatalogueProfile implements Serializable {
     @Override
     public String toString() {
         return "dominio.CatalogueProfile[ id=" + id + " ]";
+    }
+    
+    public Profile toProfile() {
+        return new Profile(profileName);
     }
     
 }

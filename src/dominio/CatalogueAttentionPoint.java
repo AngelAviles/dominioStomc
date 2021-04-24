@@ -51,6 +51,10 @@ public class CatalogueAttentionPoint implements Serializable {
         this.id = id;
     }
 
+    public CatalogueAttentionPoint(String point) {
+        this.point = point;
+    }
+
     public CatalogueAttentionPoint(Long id, Long folio, String point) {
         this.id = id;
         this.folio = folio;
@@ -105,6 +109,10 @@ public class CatalogueAttentionPoint implements Serializable {
     @Override
     public String toString() {
         return "dominio.CatalogueAttentionPoint[ id=" + id + " ]";
+    }
+    
+    public AttentionPoint toCatalogueAttentionPoint() {
+        return new AttentionPoint(point);
     }
     
 }

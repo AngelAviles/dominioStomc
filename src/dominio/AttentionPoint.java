@@ -56,6 +56,15 @@ public class AttentionPoint implements Serializable {
         this.id = id;
     }
 
+    public AttentionPoint(String point) {
+        this.point = point;
+    }
+
+    public AttentionPoint(String point, Employee employee) {
+        this.point = point;
+        this.employee = employee;
+    }
+
     public AttentionPoint(Long id, Long folio, String point, Employee employeeList) {
         this.id = id;
         this.folio = folio;
@@ -121,4 +130,7 @@ public class AttentionPoint implements Serializable {
         return "dominio.AttentionPoint[ id=" + id + " ]";
     }
     
+    public CatalogueAttentionPoint toAttentionPoint() {
+        return new CatalogueAttentionPoint(id, folio, point);
+    }
 }

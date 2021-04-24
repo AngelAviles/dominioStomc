@@ -10,6 +10,10 @@ public class Message implements Serializable {
     protected String requestedBy;
     public MessageType type;
     private Object object;
+    
+    public Message() {
+
+    }
 
     public Message(MessageType messageType, String requestedBy){
         this.uuid = UUID.randomUUID().toString();
@@ -18,11 +22,7 @@ public class Message implements Serializable {
         this.type = messageType;
     }
 
-    public Message() {
-
-    }
-
-    public Message(String requestedBy, MessageType type, Object object) {
+    public Message(MessageType type, String requestedBy, Object object) {
         this.uuid = UUID.randomUUID().toString();;
         this.datetime = String.valueOf(java.time.LocalDateTime.now());
         this.requestedBy = requestedBy;
@@ -30,8 +30,6 @@ public class Message implements Serializable {
         this.object = object;
     }
     
-    
-
     public enum MessageType {
         NEW_TURN_CAJA,
         NEW_TURN_MODULO,
@@ -81,7 +79,9 @@ public class Message implements Serializable {
         EDIT_LYSING_INFORMATION,
         DELETE_LYSING_INFORMATION,
         GET_MANY_LYSING_INFORMATION,
-        GET_ONE_LYSING_INFORMATION
+        GET_ONE_LYSING_INFORMATION, 
+        
+        ERROR
     }
 
     public String getUuid() {
@@ -123,6 +123,5 @@ public class Message implements Serializable {
     public void setObject(Object object) {
         this.object = object;
     }
-    
     
 }

@@ -56,6 +56,15 @@ public class Profile implements Serializable {
         this.id = id;
     }
 
+    public Profile(String profileName) {
+        this.profileName = profileName;
+    }
+
+    public Profile(String profileName, Employee employee) {
+        this.profileName = profileName;
+        this.employee = employee;
+    }
+
     public Profile(Long id, Long folio, String profileName, Employee employee) {
         this.id = id;
         this.folio = folio;
@@ -121,4 +130,7 @@ public class Profile implements Serializable {
         return "dominio.Profile[ id=" + id + " ]";
     }
     
+    public CatalogueProfile toCatalogueProfile() {
+        return new CatalogueProfile(id, folio, profileName);
+    }
 }

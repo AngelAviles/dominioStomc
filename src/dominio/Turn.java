@@ -7,6 +7,7 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,7 +44,7 @@ public class Turn implements Serializable {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "uuid", columnDefinition = "uniqueidentifier")
+    @Column(name = "uuid", columnDefinition = "uniqueidentifier", updatable = false)
     private String uuid;
 
     @Column(name = "dateTimeCreated")
@@ -83,14 +84,7 @@ public class Turn implements Serializable {
 
     // Constructores
     public Turn() {
-    }
-
-    public Turn(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public Turn(Type type) {
-        this.type = type;
+        this.uuid = UUID.randomUUID().toString();
     }
 
     public Turn(String uuid, Date dateTimeCreated, Date dateTimeAssigned, Date dateTimeFinished, Integer turnNumber, String status, Boolean isActive, Type type, Employee idEmployee) {

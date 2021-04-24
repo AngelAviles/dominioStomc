@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByDepartment", query = "SELECT e FROM Employee e WHERE e.department = :department")
     , @NamedQuery(name = "Employee.findByAccount", query = "SELECT e FROM Employee e WHERE e.account = :account")
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
-    , @NamedQuery(name = "Employee.comprobarValoresUnicos", query = "SELECT e FROM Employee e WHERE e.noEmployee = :noEmployee AND e.account = :account")
+    , @NamedQuery(name = "Employee.comprobarValoresUnicos", query = "SELECT e FROM Employee e WHERE e.noEmployee = :noEmployee OR e.account = :account")
     , @NamedQuery(name = "Employee.login", query = "SELECT e FROM Employee e WHERE e.account = :account AND e.password = :password")})
 public class Employee implements Serializable {
 
@@ -92,6 +92,19 @@ public class Employee implements Serializable {
 
     public Employee(Long id) {
         this.id = id;
+    }
+
+    public Employee(Long noEmployee, String name, String address, String department, AttentionPoint idAttentionPoint, Branch idBranch, String account, String password, Profile idProfile, List<Turn> turnList) {
+        this.noEmployee = noEmployee;
+        this.name = name;
+        this.address = address;
+        this.department = department;
+        this.idAttentionPoint = idAttentionPoint;
+        this.idBranch = idBranch;
+        this.account = account;
+        this.password = password;
+        this.idProfile = idProfile;
+        this.turnList = turnList;
     }
 
     public Employee(Long id, Long folio, Long noEmployee, String name, String address, String department, AttentionPoint idAttentionPoint, Branch idBranch, String account, String password, Profile idProfile, List<Turn> turnList) {

@@ -68,6 +68,15 @@ public class ReportingLog implements Serializable {
         this.id = id;
     }
 
+    public ReportingLog(String requestedReport, String userAccount, Date dateReport, String observations) {
+        this.requestedReport = requestedReport;
+        this.userAccount = userAccount;
+        this.dateReport = dateReport;
+        this.observations = observations;
+    }
+    
+    
+
     public ReportingLog(Long id, Long folio, String requestedReport, String userAccount, Date dateReport, String observations) {
         this.id = id;
         this.folio = folio;

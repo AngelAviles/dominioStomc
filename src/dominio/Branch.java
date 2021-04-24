@@ -56,6 +56,15 @@ public class Branch implements Serializable {
         this.id = id;
     }
 
+    public Branch(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public Branch(String branchName, Employee employee) {
+        this.branchName = branchName;
+        this.employee = employee;
+    }
+
     public Branch(Long id, Long folio, String branchName, Employee employee) {
         this.id = id;
         this.folio = folio;
@@ -119,6 +128,10 @@ public class Branch implements Serializable {
     @Override
     public String toString() {
         return "dominio.Branch[ id=" + id + " ]";
+    }
+    
+    public CatalogueBranch toCatalogueBranch() {
+        return new CatalogueBranch(id, folio, branchName);
     }
     
 }
