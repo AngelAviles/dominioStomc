@@ -32,6 +32,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Turn.findAll", query = "SELECT t FROM Turn t")
+    , @NamedQuery(name = "Query_EntreFechasYEstado", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated BETWEEN :fechaInicio AND :fechaFin AND t.status = :status")
+    , @NamedQuery(name = "Query_FechaInicioYEstado", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated >= :fechaInicio AND t.status = :status")
+    , @NamedQuery(name = "Query_FechaFinYEstado", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated <= :fechaFin AND t.status = :status")
+    , @NamedQuery(name = "Query_FechaInicio", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated >= :fechaInicio")
+    , @NamedQuery(name = "Query_FechaFin", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated <= :fechaFin")
+    , @NamedQuery(name = "Turn.findByIdEmployee", query = "SELECT t FROM Turn t WHERE t.idEmployee = :idEmployee")
     , @NamedQuery(name = "Turn.findByUuid", query = "SELECT t FROM Turn t WHERE t.uuid = :uuid")
     , @NamedQuery(name = "Turn.findByDateTimeCreated", query = "SELECT t FROM Turn t WHERE t.dateTimeCreated BETWEEN :fechaInicio AND :fechaFin")
     , @NamedQuery(name = "Turn.findByDateTimeAssigned", query = "SELECT t FROM Turn t WHERE t.dateTimeAssigned BETWEEN :fechaInicio AND :fechaFin")

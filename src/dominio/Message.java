@@ -31,6 +31,8 @@ public class Message implements Serializable {
     }
     
     public enum MessageType {
+        SERVER_SUCCESSFULLY_CREATED_TURN,
+        
         NEW_TURN_CAJA,
         NEW_TURN_MODULO,
         NEW_TURN_GENERIC,
@@ -38,7 +40,14 @@ public class Message implements Serializable {
         CALL_NEXT_MODULO,
         CALL_NEXT_GENERIC,
         RELEASE_TURN,
-        SERVER_SUCCESSFULLY_CREATED_TURN,
+        
+        GET_TURNS_STATUS,
+        GET_TURNS_START_DATE,
+        GET_TURNS_END_DATE,
+        GET_TURNS_STATUS_START_DATE,
+        GET_TURNS_STATUS_END_DATE,
+        GET_TURNS_START_AND_END_DATE,
+        GET_TURNS_STATUS_START_AND_END_DATE,
         
         ADD_EMPLOYEE,
         EDIT_EMPLOYEE,
@@ -56,17 +65,35 @@ public class Message implements Serializable {
         GET_MANY_ATTENTION_POINT,
         GET_ONE_ATTENTION_POINT,
         
+        ADD_CATALOGUE_ATTENTION_POINT,
+        EDIT_CATALOGUE_ATTENTION_POINT,
+        DELETE_CATALOGUE_ATTENTION_POINT,
+        GET_MANY_CATALOGUE_ATTENTION_POINT,
+        GET_ONE_CATALOGUE_ATTENTION_POINT,
+        
         ADD_BRANCH,
         EDIT_BRANCH,
         DELETE_BRANCH,
         GET_MANY_BRANCH,
         GET_ONE_BRANCH,
         
+        ADD_CATALOGUE_BRANCH,
+        EDIT_CATALOGUE_BRANCH,
+        DELETE_CATALOGUE_BRANCH,
+        GET_MANY_CATALOGUE_BRANCH,
+        GET_ONE_CATALOGUE_BRANCH,
+        
         ADD_PROFILE,
         EDIT_PROFILE,
         DELETE_PROFILE,
         GET_MANY_PROFILE,
         GET_ONE_PROFILE,
+        
+        ADD_CATALOGUE_PROFILE,
+        EDIT_CATALOGUE_PROFILE,
+        DELETE_CATALOGUE_PROFILE,
+        GET_MANY_CATALOGUE_PROFILE,
+        GET_ONE_CATALOGUE_PROFILE,
         
         ADD_TURN,
         EDIT_TURN,

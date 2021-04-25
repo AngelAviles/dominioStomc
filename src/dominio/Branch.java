@@ -81,7 +81,7 @@ public class Branch implements Serializable {
         this.id = id;
     }
 
-    public long getFolio() {
+    public Long getFolio() {
         return folio;
     }
 

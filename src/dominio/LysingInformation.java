@@ -40,7 +40,7 @@ public class LysingInformation implements Serializable {
     @Column(name = "folio", columnDefinition = "BIGINT IDENTITY", insertable = false)
     private Long folio;
 
-    @Column(name = "process")
+    @Column(name = "process", columnDefinition = "text")
     private String process;
 
     public LysingInformation() {

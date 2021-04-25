@@ -7,6 +7,7 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -83,7 +84,7 @@ public class Employee implements Serializable {
     @OneToOne
     private Profile idProfile;
 
-    @OneToMany(mappedBy = "idEmployee")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmployee")
     private List<Turn> turnList;
 
     // Constructores
