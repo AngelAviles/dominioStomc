@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByAccount", query = "SELECT e FROM Employee e WHERE e.account = :account")
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
     , @NamedQuery(name = "Employee.comprobarValoresUnicos", query = "SELECT e FROM Employee e WHERE e.noEmployee = :noEmployee OR e.account = :account")
+    , @NamedQuery(name = "findAccount_NotId", query = "SELECT e FROM Employee e WHERE NOT e.id = :id AND e.account = :account")
     , @NamedQuery(name = "Employee.login", query = "SELECT e FROM Employee e WHERE e.account = :account AND e.password = :password")})
 public class Employee implements Serializable {
 

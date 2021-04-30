@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CatalogueAttentionPoint.findAll", query = "SELECT a FROM CatalogueAttentionPoint a")
+    , @NamedQuery(name = "FindPoint_NotID", query = "SELECT a FROM CatalogueAttentionPoint a WHERE NOT a.id = :id AND a.point = :point")
     , @NamedQuery(name = "CatalogueAttentionPoint.findById", query = "SELECT a FROM CatalogueAttentionPoint a WHERE a.id = :id")
     , @NamedQuery(name = "CatalogueAttentionPoint.findByFolio", query = "SELECT a FROM CatalogueAttentionPoint a WHERE a.folio = :folio")
     , @NamedQuery(name = "CatalogueAttentionPoint.findByPoint", query = "SELECT a FROM CatalogueAttentionPoint a WHERE a.point = :point")})

@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CatalogueProfile.findAll", query = "SELECT p FROM CatalogueProfile p")
+    , @NamedQuery(name = "FindByProfileName_NotId", query = "SELECT p FROM CatalogueProfile p WHERE NOT p.id = :id AND p.profileName = :profileName")
     , @NamedQuery(name = "CatalogueProfile.findById", query = "SELECT p FROM CatalogueProfile p WHERE p.id = :id")
     , @NamedQuery(name = "CatalogueProfile.findByFolio", query = "SELECT p FROM CatalogueProfile p WHERE p.folio = :folio")
     , @NamedQuery(name = "CatalogueProfile.findByProfileName", query = "SELECT p FROM CatalogueProfile p WHERE p.profileName = :profileName")})
