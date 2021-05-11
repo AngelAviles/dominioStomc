@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "LysingInformation.findAll", query = "SELECT l FROM LysingInformation l")
     , @NamedQuery(name = "LysingInformation.findById", query = "SELECT l FROM LysingInformation l WHERE l.id = :id")
     , @NamedQuery(name = "LysingInformation.findByFolio", query = "SELECT l FROM LysingInformation l WHERE l.folio = :folio")
+    , @NamedQuery(name = "LysingInformation.findByTitle", query = "SELECT l FROM LysingInformation l WHERE l.title = :title")
     , @NamedQuery(name = "LysingInformation.findByProcess", query = "SELECT l FROM LysingInformation l WHERE l.process = :process")})
 public class LysingInformation implements Serializable {
 
@@ -39,6 +40,9 @@ public class LysingInformation implements Serializable {
 
     @Column(name = "folio", columnDefinition = "BIGINT IDENTITY", insertable = false)
     private Long folio;
+    
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "process", columnDefinition = "text")
     private String process;
@@ -50,13 +54,10 @@ public class LysingInformation implements Serializable {
         this.id = id;
     }
 
-    public LysingInformation(String process) {
-        this.process = process;
-    }
-
-    public LysingInformation(Long id, Long folio, String process) {
+    public LysingInformation(Long id, Long folio, String title, String process) {
         this.id = id;
         this.folio = folio;
+        this.title = title;
         this.process = process;
     }
 
@@ -76,6 +77,14 @@ public class LysingInformation implements Serializable {
         this.folio = folio;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
     public String getProcess() {
         return process;
     }
