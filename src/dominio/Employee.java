@@ -67,11 +67,11 @@ public class Employee implements Serializable {
     private String department;
 
     @JoinColumn(name = "idAttentionPoint", referencedColumnName = "id", columnDefinition = "BIGINT")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private AttentionPoint idAttentionPoint;
 
     @JoinColumn(name = "idBranch", referencedColumnName = "id", columnDefinition = "BIGINT")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Branch idBranch;
 
     // Informacion de cuenta de usuario
@@ -82,7 +82,7 @@ public class Employee implements Serializable {
     private String password;
 
     @JoinColumn(name = "idProfile", referencedColumnName = "id", columnDefinition = "BIGINT")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Profile idProfile;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmployee")

@@ -45,7 +45,7 @@ public class Profile implements Serializable {
     @Column(name = "profileName")
     private String profileName;
     
-    @OneToOne(mappedBy = "idProfile", targetEntity = Employee.class, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "idProfile", targetEntity = Employee.class)
     private Employee employee;
 
     // Contructores

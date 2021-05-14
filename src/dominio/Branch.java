@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Branch.findAll", query = "SELECT b FROM Branch b")
     , @NamedQuery(name = "Branch.findById", query = "SELECT b FROM Branch b WHERE b.id = :id")
     , @NamedQuery(name = "Branch.findByFolio", query = "SELECT b FROM Branch b WHERE b.folio = :folio")
+    , @NamedQuery(name = "Branch.findByAddress", query = "SELECT b FROM Branch b WHERE b.address = :address")
     , @NamedQuery(name = "Branch.findByBranchName", query = "SELECT b FROM Branch b WHERE b.branchName = :branchName")})
 public class Branch implements Serializable {
 
@@ -45,7 +46,10 @@ public class Branch implements Serializable {
     @Column(name = "branchName")
     private String branchName;
     
-    @OneToOne(mappedBy = "idBranch", targetEntity = Employee.class, cascade = CascadeType.ALL)
+    @Column(name = "address", columnDefinition = "text")
+    private String address;
+    
+    @OneToOne(mappedBy = "idBranch", targetEntity = Employee.class)
     private Employee employee;
 
     // Contructores
@@ -56,8 +60,9 @@ public class Branch implements Serializable {
         this.id = id;
     }
 
-    public Branch(String branchName) {
+    public Branch(String branchName, String address) {
         this.branchName = branchName;
+        this.address = address;
     }
 
     public Branch(String branchName, Employee employee) {
@@ -65,13 +70,14 @@ public class Branch implements Serializable {
         this.employee = employee;
     }
 
-    public Branch(Long id, Long folio, String branchName, Employee employee) {
+    public Branch(Long id, Long folio, String branchName, String address, Employee employee) {
         this.id = id;
         this.folio = folio;
         this.branchName = branchName;
+        this.address = address;
         this.employee = employee;
     }
-    
+
     // Getters y Setters
     public Long getId() {
         return id;
@@ -95,6 +101,14 @@ public class Branch implements Serializable {
 
     public void setBranchName(String branchName) {
         this.branchName = branchName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Employee getEmployee() {
@@ -131,7 +145,7 @@ public class Branch implements Serializable {
     }
     
     public CatalogueBranch toCatalogueBranch() {
-        return new CatalogueBranch(id, folio, branchName);
+        return new CatalogueBranch(id, folio, branchName, address);
     }
     
 }

@@ -84,8 +84,7 @@ public class Turn implements Serializable {
 
     public enum Type {
         CAJA,
-        MODULO,
-        GENERIC
+        MODULO
     }
 
     // Constructores

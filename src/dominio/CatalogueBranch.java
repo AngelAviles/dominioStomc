@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "FindBranchName_NotId", query = "SELECT b FROM CatalogueBranch b WHERE NOT b.id = :id AND b.branchName = :branchName")
     , @NamedQuery(name = "CatalogueBranch.findById", query = "SELECT b FROM CatalogueBranch b WHERE b.id = :id")
     , @NamedQuery(name = "CatalogueBranch.findByFolio", query = "SELECT b FROM CatalogueBranch b WHERE b.folio = :folio")
+    , @NamedQuery(name = "CatalogueBranch.findByAddress", query = "SELECT b FROM CatalogueBranch b WHERE b.address = :address")
     , @NamedQuery(name = "CatalogueBranch.findByBranchName", query = "SELECT b FROM CatalogueBranch b WHERE b.branchName = :branchName")})
 public class CatalogueBranch implements Serializable {
 
@@ -44,6 +45,9 @@ public class CatalogueBranch implements Serializable {
     @Column(name = "branchName")
     private String branchName;
 
+    @Column(name = "address", columnDefinition = "text")
+    private String address;
+    
     // Contructores
     public CatalogueBranch() {
     }
@@ -52,16 +56,18 @@ public class CatalogueBranch implements Serializable {
         this.id = id;
     }
 
-    public CatalogueBranch(String branchName) {
+    public CatalogueBranch(String branchName, String address) {
         this.branchName = branchName;
+        this.address = address;
     }
 
-    public CatalogueBranch(Long id, Long folio, String branchName) {
+    public CatalogueBranch(Long id, Long folio, String branchName, String address) {
         this.id = id;
         this.folio = folio;
         this.branchName = branchName;
+        this.address = address;
     }
-    
+
     // Getters y Setters
     public Long getId() {
         return id;
@@ -85,6 +91,14 @@ public class CatalogueBranch implements Serializable {
 
     public void setBranchName(String branchName) {
         this.branchName = branchName;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
     @Override
@@ -113,7 +127,7 @@ public class CatalogueBranch implements Serializable {
     }
     
     public Branch toCatalogueBranch() {
-        return new Branch(branchName);
+        return new Branch(branchName, address);
     }
     
 }

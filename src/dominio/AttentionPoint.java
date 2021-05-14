@@ -45,7 +45,7 @@ public class AttentionPoint implements Serializable {
     @Column(name = "point")
     private String point;
     
-    @OneToOne(mappedBy = "idAttentionPoint", targetEntity = Employee.class, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "idAttentionPoint", targetEntity = Employee.class)
     private Employee employee;
 
     // Contructores
